@@ -82,7 +82,7 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        echo "FIRMWARE=$PWD" >> "$GITHUB_ENV"
+        echo "FIRMWARE=$PWD" >> "$GITHUB_OUTPUT"
         echo "status=success" >> "$GITHUB_OUTPUT"
 
     - name: Upload firmware directory
@@ -90,4 +90,4 @@ jobs:
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware
-        path: $FIRMWARE
+        path: steps.organize.outputs.FIRMWARE
